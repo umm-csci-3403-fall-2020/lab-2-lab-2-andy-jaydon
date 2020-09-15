@@ -1,13 +1,18 @@
 #include <gtest/gtest.h>
 
 #include "palindrome.h"
+char *testPalindrome;
 
 void is_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "Yes");
+  testPalindrome = palindrome(str);
+  ASSERT_STREQ(testPalindrome, "Yes");
+  free(testPalindrome);
 }
 
 void not_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "No");
+  testPalindrome = palindrome(str);
+  ASSERT_STREQ(testPalindrome, "No");
+  free(testPalindrome);
 }
 
 TEST(Palindrome, HandlesEmptyString) {
