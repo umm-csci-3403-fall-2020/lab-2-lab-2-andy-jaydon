@@ -1,50 +1,50 @@
 #include <stdlib.h>
 #include <string.h>
 #include "disemvowel.h"
-
-char *disemvowel(char *str) {
-	int size, i, j;
-	int num_vowels;
-	char* result;
-	size = strlen(str);
-	
-
-	//Creates function to check string for vowels and change the value of num_vowels
-	int vowelCheck(char str) {
-		int num_vowels;
-		for (i = 0; str[i] != '\0'; ++i){
-			if (str[1] == 'a' || str[i] == 'e' || str[i] == 'i'|| str[i] == 'o' || str[i] == 'U' || str [i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U'){
-			       	++num_vowels
-			}
-		}
+//Function for checking vowels
+int vowelCheck(char c){
+            if (c == 'a' || c == 'e' || c == 'i' ||
+                   c == 'o' || c == 'u' || c == 'A' ||
+                   c == 'E' || c == 'I' || c == 'O' ||
+                   c == 'U')
+               return 0;
+	    else
+	       return 1;
+}
+//Main functions
+  char* disemvowel(char* str) {
+  int size = 0;
+  int i = 0;
+  int spot = 0;
+  int cons = 0;
+  char *result;
+//get size of string
+  size = strlen(str);
+//If string is empty return string
+  if (size <= 0){
+    return str;
+  }
+//Set number of constants in string
+  for (i=0; i<size; i++){
+	if (vowelCheck(str[i])==1){
+		cons++;
 	}
-
-	//Runs the function
-	vowelCheck(str);
-	
-	//If there are no vowels, return the input string
-	if (num_vowels = 0){
-		return str;
-	}
-	
-	//Otherwise, remove the vowels from the string
-	else{
-		for(i=0; i<size; i++){
-			if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U'){
-				for(j=i; j<size; j++)
-				{
-					str[j]=str[j+1];
-				}
-				size--;
-			}
-		}
-
-		//Allocates memory for the resulting string including an extra bit for the null terminator
-		//Freees the memory
-		//return
-		result = (char*)calloc(size-num_vowels+1, sizeof(char));
-		result[0] = '\0';
-		free(result);
-		return result;
-	}
+  }
+//If number of constants equal size of string, then return string
+  if (cons == size){
+	return str;
+  }
+//Allocate mem  
+  result = (char*)calloc(cons+1, sizeof(char*));
+//Main part of method that removes vowels from the inputted string
+  for(i=0; i<size; i++){
+    if (vowelCheck(str[i])==1){
+		    result[spot]=str[i];
+		    spot++;
+    }
+  }
+//Put null char on end of string
+result[cons+1] = '\0';
+//Output new string with no vowels
+return result;
 }
